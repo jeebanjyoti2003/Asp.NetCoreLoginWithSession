@@ -65,6 +65,9 @@ namespace Asp.NetCoreLoginWithSession.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProfile(User usr)
         {
+            //var data=HttpContext.Session.GetString("Usermail");
+            //var user=await _userService.GetUserAsync(data);
+            //usr.UserId = user.UserId;
             await _userService.UpdateUserAsync(usr);
             return RedirectToAction("Dashboard");
         }
@@ -76,9 +79,20 @@ namespace Asp.NetCoreLoginWithSession.Controllers
 
 
         [HttpPost]
-        public IActionResult ChangePasword(string currentpassword, string newpassword)
+        public async  Task<IActionResult> ChangePassword(ChangePass cps)
         {
-            return View();
+            var data=await _userService.ChangePass(cps);
+            if(data==1)
+            {
+                TempData["msg"] = "Password Updated Successfully.";
+                return RedirectToAction("Dashboard");
+            }
+            else
+            {
+                ViewBag.msg = "Invalid Current Password.";
+                ModelState.Clear();
+                return View();
+            }
         }
     }
 }

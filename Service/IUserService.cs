@@ -11,5 +11,7 @@ namespace Asp.NetCoreLoginWithSession.Service
         Task<int> AddUserAsync(User user);
 
         Task<User> ValidateUser(string email,string password);
+
+        Task<int> ChangePass(ChangePass cps);
     }
 }

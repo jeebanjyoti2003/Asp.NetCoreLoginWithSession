@@ -14,14 +14,14 @@ namespace Asp.NetCoreLoginWithSession.Models
 
         [Required(ErrorMessage = "Password is required ")]
         [Display(Name = "Password")]
-        [DataType(DataType.Password)]
+        //[DataType(DataType.Password)]
         public string? Password { get; set; }
 
         [NotMapped]
         [Display(Name ="Confirm password")]
         [Required(ErrorMessage ="Reenter the password")]
         [Compare("Password",ErrorMessage ="password and confirm password must same")]
-        [DataType(DataType.Password)]
+        //[DataType(DataType.Password)]
         public string? ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Email is required ")]

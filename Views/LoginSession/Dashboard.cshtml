@@ -6,6 +6,12 @@
 
 <h1>Dashboard</h1>
 
+@{
+    if (TempData["msg"]!=null)
+    {
+        <h4 style="color:greenyellow">@TempData["msg"]</h4>
+    }
+}
 <div>
     <h4 style="color:brown">Hello @Model.UserName</h4>
     <h4>User</h4>
@@ -22,18 +28,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ConfirmPassword)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ConfirmPassword)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UserEmail)
@@ -57,5 +51,6 @@
 </div>
 <div>
     @Html.ActionLink("Logout", "Logout")<br />
+    @Html.ActionLink("ChangePassword", "ChangePassword")<br />
     @Html.ActionLink("EditProfile", "EditProfile", new { Email = Model.UserEmail })
 </div>

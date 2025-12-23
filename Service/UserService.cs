@@ -47,7 +47,10 @@ namespace Asp.NetCoreLoginWithSession.Service
         {
             try
             {
-                _userContext.UserMaster.Update(user);
+                var usr = await _userContext.UserMaster.FindAsync(user.UserId);
+                usr.UserName=user.UserName;
+                usr.UserAge=user.UserAge;
+                usr.UserAdd=user.UserAdd;
                 await _userContext.SaveChangesAsync();
                 return 0;
             }
@@ -75,6 +78,21 @@ namespace Asp.NetCoreLoginWithSession.Service
             {
                 return null;
             }
+        }
+        public async Task<int> ChangePass(ChangePass cps)
+        {
+            try
+            {
+                var data = await _userContext.UserMaster.FirstOrDefaultAsync(x=>x.Password==cps.CurPass);
+                if (data != null)
+                {
+                   data.Password=cps.NewPass;
+                   await _userContext.SaveChangesAsync();
+                    return 1;
+                }
+                return 0;
+            }
+            catch { return 0; }
         }
     }
 }
