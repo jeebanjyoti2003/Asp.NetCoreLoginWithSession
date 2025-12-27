@@ -1,5 +1,6 @@
 using Asp.NetCoreLoginWithSession.Data;
 using Asp.NetCoreLoginWithSession.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +13,12 @@ x.UseSqlServer(builder.Configuration.GetConnectionString("dbcs")));
 
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddSession();
+//builder.Services.AddSession();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline..
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -30,7 +32,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-app.UseSession();
+//app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
